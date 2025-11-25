@@ -1,0 +1,37 @@
+{
+	"type": "module",
+	"include": ["src/**/*.ts"],
+	"exclude": [
+		"build",
+		"node_modules",
+		"tests/**/*.test.ts",
+		"tests/**/*.mock.ts"
+	],
+ 	"compileOnSave": true,
+	"compilerOptions": {
+		"target": "ESNext",
+		"module": "ESNext",
+		"moduleResolution": "Bundler",
+		"allowImportingTsExtensions": false,
+		"esModuleInterop": true,
+		"allowSyntheticDefaultImports": true,
+		"resolveJsonModule": false,
+		"forceConsistentCasingInFileNames": true,
+		"strict": true,
+		"noUnusedLocals": true,
+		"noUnusedParameters": true,
+		"alwaysStrict": true,
+		/* Because of MongoDB */
+		"strictPropertyInitialization": false,
+		"declaration": true,
+		"sourceMap": true,
+		"rootDir": "src",
+		"outDir": "build",
+		"skipLibCheck": true,
+		"noEmit": false,
+		"emitDeclarationOnly": false,
+		"removeComments": false,
+		"emitDecoratorMetadata": true,
+		"experimentalDecorators": true
+	}
+}
