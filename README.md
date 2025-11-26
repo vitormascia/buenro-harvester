@@ -60,7 +60,7 @@ npm run start:dev
 
 ### Harvesting process
 
-The data harvest process will be triggered in the very moment you bootstrap the App and in an interval of every 4 hours after that. If you wanna change that go to class `JobsService`.
+The data harvest process will be triggered in the very moment you bootstrap the App and in an interval of every `4` hours after that. If you wanna change that go to class `JobsService`.
 
 **⚠️ PLEASE WAIT FOR THE 1M RECORDS TO BE IN PLACE IN ORDER TO MAKE QUERIES ⚠️**
 
