@@ -94,7 +94,9 @@ text  = Ocean Breeze (or Oea Breez)
 limit = 10
 skip  = 0
 
-Partial Text Filtering ($text): Finds results where name, city, or country contains the words "Ocean Breeze" or even parcial text like "Oea Breez" This tests the multi-field text index across both schemas.
+Partial Text Filtering ($text): Finds results where name, city, or country contains the words
+"Ocean Breeze" or even parcial text like "Oea Breez" This tests the multi-field text index
+across both schemas.
 --------------------------
 [TEST 2] Numeric Range + Common Filter
 
@@ -102,7 +104,9 @@ minPrice    = 500
 maxPrice    = 750
 isAvailable = true
 
-Numeric Range Filtering: Filters all documents (both sources) where pricePerNight is between $500 and $750. Common Field Filtering: Further filters results to only show records where the base field isAvailable is true.
+Numeric Range Filtering: Filters all documents (both sources) where pricePerNight is between
+$500 and $750. Common Field Filtering: Further filters results to only show records where the
+base field isAvailable is true.
 --------------------------
 [TEST 3] Discriminator 1 (Stays Profiles) Filter
 
@@ -110,7 +114,8 @@ country       = France
 sortBy        = name
 sortDirection = DESC
 
-Specific Field Filtering: Filters exclusively for StayProfile documents, as only they contain the country field. This confirms filtering on non-base attributes.
+Specific Field Filtering: Filters exclusively for StayProfile documents, as only they contain
+the country field. This confirms filtering on non-base attributes.
 --------------------------
 [TEST 4] Discriminator 2 (Stays Summaries) Filter
 
@@ -118,7 +123,8 @@ priceSegment = high
 limit        = 50
 sortBy       = pricePerNight
 
-Specific Field Filtering: Filters exclusively for StaySummary documents, as only they contain the priceSegment field. This tests a filter on the second discriminator.
+Specific Field Filtering: Filters exclusively for StaySummary documents, as only they contain
+the priceSegment field. This tests a filter on the second discriminator.
 --------------------------
 [TEST 5] Compound Filter (Mixed)
 
@@ -126,7 +132,8 @@ city         = London
 priceSegment = medium
 limit        = 10
 
-Compound Filtering: Filters the entire collection by the base field city (London), and then implicitly narrows the result to only StaySummary documents where priceSegment is "medium."
+Compound Filtering: Filters the entire collection by the base field city (London), and then
+implicitly narrows the result to only StaySummary documents where priceSegment is "medium."
 --------------------------
 ```
 
