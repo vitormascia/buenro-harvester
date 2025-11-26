@@ -216,7 +216,7 @@ I added a `docker-compose.yml` to:
 
 This makes local development and production deployment easier, faster, and reproducible.
 
-### ⚡ The Raw Performance Metric
+## ⚡ The Raw Performance Metric
 
 | **Metric**           | **Value**                            |
 | -------------------- | ------------------------------------ |
