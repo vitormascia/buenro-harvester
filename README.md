@@ -105,7 +105,7 @@ maxPrice    = 750
 isAvailable = true
 
 Numeric Range Filtering: Filters all documents (both sources) where pricePerNight is between
-$500 and $750. Common Field Filtering: Further filters results to only show records where the
+500 and 750. Common Field Filtering: Further filters results to only show records where the
 base field isAvailable is true.
 --------------------------
 [TEST 3] Discriminator 1 (Stays Profiles) Filter
@@ -133,7 +133,7 @@ priceSegment = medium
 limit        = 10
 
 Compound Filtering: Filters the entire collection by the base field city (London), and then
-implicitly narrows the result to only StaySummary documents where priceSegment is "medium."
+implicitly narrows the result to only StaySummary documents where priceSegment is "medium"
 --------------------------
 ```
 
