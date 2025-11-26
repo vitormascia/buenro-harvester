@@ -90,11 +90,11 @@ docker compose down -v
 --------------------------
 [TEST 1] Partial Text + Pagination
 
-text  = Ocean Breeze (or Ocean Breeze)
+text  = Ocean Breeze (or Oea Breez)
 limit = 10
 skip  = 0
 
-Partial Text Filtering ($text): Finds results where name, city, or country contains the words "Grand" or "Hotel." This tests the multi-field text index across both schemas.
+Partial Text Filtering ($text): Finds results where name, city, or country contains the words "Ocean Breeze" or even parcial text like "Oea Breez" This tests the multi-field text index across both schemas.
 --------------------------
 [TEST 2] Numeric Range + Common Filter
 
