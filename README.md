@@ -6,7 +6,7 @@
 
 # 🌾 Buenro Harvester 🚜
 
-Collects data from multiple sources, processes it, and exposes the results through an REST API.
+Collects data from multiple sources, processes it, and exposes the results through a REST API.
 
 ## 🎛️ Running the app
 
