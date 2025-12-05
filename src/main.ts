@@ -1,10 +1,14 @@
 import helmet from "@fastify/helmet";
 import {
-	ConsoleLogger, Logger, NestApplicationOptions, ValidationPipe,
+	ConsoleLogger,
+	Logger,
+	NestApplicationOptions,
+	ValidationPipe,
 } from "@nestjs/common";
 import { ConfigService } from "@nestjs/config";
 import { NestFactory } from "@nestjs/core";
 import { FastifyAdapter, NestFastifyApplication } from "@nestjs/platform-fastify";
+import { DocumentBuilder, OpenAPIObject, SwaggerModule } from "@nestjs/swagger";
 
 import { COMMA } from "./constants/symbols.constants.js";
 import { HttpExceptionFilter } from "./filters/http_exception.filters.js";
@@ -54,7 +58,47 @@ async function bootstrap(): Promise<void> {
 		credentials: true,
 	});
 
-	await app.register(helmet);
+	/*
+		When using Fastify and Helmet, there MAY be a problem with CSP, to solve this collision,
+		configure the CSP as shown below
+	*/
+	await app.register(helmet, {
+		contentSecurityPolicy: {
+			directives: {
+				defaultSrc: ["'self'"],
+				styleSrc: ["'self'", "'unsafe-inline'"],
+				imgSrc: ["'self'", "data:", "validator.swagger.io"],
+				scriptSrc: ["'self'", "https: 'unsafe-inline'"],
+			},
+		},
+	});
+
+	const config = new DocumentBuilder()
+		.setTitle("Buenro Harvester")
+		.setDescription("Collects data from multiple sources, processes it, and exposes the results through an API.")
+		.setVersion("1.0.0")
+		.build();
+	const documentFactory = (): OpenAPIObject => SwaggerModule.createDocument(
+		app,
+		config,
+		{
+			deepScanRoutes: true,
+			autoTagControllers: true,
+		},
+	);
+
+	SwaggerModule.setup(
+		"/api",
+		app,
+		documentFactory,
+		{
+			ui: true,
+			explorer: true,
+			customSiteTitle: "CUSTOM EXAMPLE",
+			jsonDocumentUrl: "/swagger/docs",
+			raw: ["json"],
+		},
+	);
 
 	const appConfig = {
 		name: configService.get("app.name", { infer: true }),

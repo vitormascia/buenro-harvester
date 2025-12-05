@@ -10,10 +10,11 @@ export class JobsService implements OnModuleInit {
 
 	constructor(private readonly harvestService: HarvesterService) { }
 
+	// eslint-disable-next-line @typescript-eslint/require-await
 	public async onModuleInit(): Promise<void> {
 		this.logger.debug("HARVESTING_STAYS::ON_MODULE_INIT");
 
-		await this.harvestStays();
+		// await this.harvestStays();
 	}
 
 	/* Other option using Cron and CronExpression from @nestjs/schedule */

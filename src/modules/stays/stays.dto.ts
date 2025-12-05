@@ -1,6 +1,7 @@
+import { ApiProperty } from "@nestjs/swagger";
 import { Transform } from "class-transformer";
 import {
-	IsBoolean, IsIn, IsInt, IsOptional, IsPositive, IsString,
+	IsBoolean, IsEnum, IsIn, IsInt, IsOptional, IsPositive, IsString,
 	Max, MaxLength, Min, MinLength,
 } from "class-validator";
 
@@ -16,6 +17,11 @@ const allowedSortByColumns = [
 
 export class QueryStaysDto {
 	/* --- Full Text Search --- */
+	@ApiProperty({
+		type: String,
+		required: false,
+		description: "Stay name, city or country",
+	})
 	@MaxLength(150)
 	@MinLength(1)
 	@IsString()
@@ -23,30 +29,53 @@ export class QueryStaysDto {
 	public readonly text?: string;
 
 	/* --- Exact Filtering (Common & Discriminator Fields) --- */
+	@ApiProperty({
+		type: String,
+		required: false,
+		description: "Stay name",
+	})
 	@MaxLength(150)
 	@MinLength(1)
 	@IsString()
 	@IsOptional()
 	public readonly name?: string;
 
+	@ApiProperty({
+		type: String,
+		required: false,
+		description: "Stay city",
+	})
 	@MaxLength(150)
 	@MinLength(1)
 	@IsOptional()
 	@IsString()
 	public readonly city?: string;
 
+	@ApiProperty({
+		type: String,
+		required: false,
+		description: "Stay country",
+	})
 	@MaxLength(150)
 	@MinLength(1)
 	@IsString()
 	@IsOptional()
 	public readonly country?: string;
 
-	// @IsEnum(StayPriceSegment)
-	@IsIn(Object.values(StayPriceSegment))
-	@IsString()
+	@ApiProperty({
+		enum: StayPriceSegment,
+		required: false,
+		description: "Stay price segment",
+	})
+	@IsEnum(StayPriceSegment)
 	@IsOptional()
-	public readonly priceSegment?: "low" | "medium" | "high";
+	public readonly priceSegment?: StayPriceSegment;
 
+	@ApiProperty({
+		type: Boolean,
+		required: false,
+		description: "True for available, otherwise false",
+	})
 	@IsBoolean()
 	@IsOptional()
 	@Transform(({ value }: { value: any }): any => {
@@ -63,12 +92,22 @@ export class QueryStaysDto {
 	public readonly isAvailable?: boolean;
 
 	/* --- Numeric Range Filtering (PricePerNight) --- */
+	@ApiProperty({
+		type: Number,
+		required: false,
+		description: "Stay minimum price",
+	})
 	@IsPositive()
 	@IsInt()
 	@IsOptional()
 	@Transform(({ value }) => parseInt(value))
 	public readonly minPrice?: number;
 
+	@ApiProperty({
+		type: Number,
+		required: false,
+		description: "Stay maximum price",
+	})
 	@IsPositive()
 	@IsInt()
 	@IsOptional()
@@ -76,12 +115,24 @@ export class QueryStaysDto {
 	public readonly maxPrice?: number;
 
 	/* --- Pagination and Sorting --- */
+	@ApiProperty({
+		type: Number,
+		required: false,
+		default: 0,
+		description: "Stays records to skip",
+	})
 	@Min(0)
 	@IsInt()
 	@IsOptional()
 	@Transform(({ value }) => parseInt(value))
 	public readonly skip: number = 0;
 
+	@ApiProperty({
+		type: Number,
+		required: false,
+		default: 25,
+		description: "Stays records limit",
+	})
 	@Max(100)
 	@IsPositive()
 	@IsInt()
@@ -89,13 +140,23 @@ export class QueryStaysDto {
 	@Transform(({ value }) => parseInt(value))
 	public readonly limit: number = 25;
 
+	@ApiProperty({
+		type: String,
+		required: false,
+		default: "pricePerNight",
+		description: "Stays sort by key",
+	})
 	@IsIn(allowedSortByColumns)
-	@IsString()
 	@IsOptional()
 	public readonly sortBy?: string = "pricePerNight";
 
+	@ApiProperty({
+		type: String,
+		required: false,
+		default: "ASC",
+		description: "Stays sorting direction",
+	})
 	@IsIn(["ASC", "DESC"])
-	@IsString()
 	@IsOptional()
 	public readonly sortDirection?: "ASC" | "DESC" = "ASC";
 }
